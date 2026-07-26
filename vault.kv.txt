@@ -1,0 +1,78 @@
+<LockScreen>:
+    canvas.before:
+        Color:
+            rgba: 0, 0, 0, 1
+        Rectangle:
+            pos: self.pos
+            size: self.size
+    BoxLayout:
+        orientation: "vertical"
+        padding: 40
+        spacing: 20
+        Widget:
+        Label:
+            text: "[ Touch the fingerprint sensor ]"
+            color: 1, 1, 1, 1
+            font_size: 20
+        Button:
+            text: "Retry"
+            size_hint: (0.5, None)
+            height: 44
+            pos_hint: {"center_x": 0.5}
+            on_release: root.try_unlock()
+        Label:
+            id: status_label
+            text: ""
+            color: 1, 0.3, 0.3, 1
+        Widget:
+
+<HomeScreen>:
+    BoxLayout:
+        orientation: "vertical"
+        padding: 20
+        spacing: 10
+        Label:
+            text: "My Vault"
+            font_size: 24
+            size_hint_y: None
+            height: 48
+        ScrollView:
+            GridLayout:
+                id: folder_list
+                cols: 1
+                size_hint_y: None
+                height: self.minimum_height
+                spacing: 8
+        Button:
+            text: "+ New Folder"
+            size_hint_y: None
+            height: 56
+            on_release: root.new_folder_popup()
+
+<FolderScreen>:
+    BoxLayout:
+        orientation: "vertical"
+        padding: 20
+        spacing: 10
+        Label:
+            text: root.folder_name
+            font_size: 22
+            size_hint_y: None
+            height: 40
+        ScrollView:
+            GridLayout:
+                id: photo_grid
+                cols: 3
+                size_hint_y: None
+                height: self.minimum_height
+                spacing: 6
+        BoxLayout:
+            size_hint_y: None
+            height: 56
+            spacing: 10
+            Button:
+                text: "< Back"
+                on_release: app.root.current = "home"
+            Button:
+                text: "+ Add Photo"
+                on_release: root.add_photo()
